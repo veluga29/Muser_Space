@@ -1,0 +1,122 @@
+<div class="row first_row">
+    <div class="player-container">
+        <% unless @songwriting.album_pic.nil? %>
+            <div class="coverImageBackground" style="background-image: url('<%=@songwriting.album_pic%>');"></div>
+        <% else %>
+            <div class="coverImageBackground" style="background-image: url('http://via.placeholder.com/300X300');"></div>
+        <% end %>
+        
+        <div class="centeredPlayerWrapper">
+            <div class="musicBoxCentered">
+                <div class="musicInfo">
+                        
+                
+                    <div id="d1_trackNameLabel" class="musicTrackName"><%= @songwriting.title%></div>
+                    <div id="d1_artistLabel" class="musicTrackArtist"><%= @songwriting.user_name %></div>
+                     <div class="musicButtonField">
+                         <div class="musicButtonAdd"><span class="glyphicon glyphicon-music"></span></div>
+                         <div class="musicButtonAdd"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;리스트 추가...</div>
+                         
+                                 <% if current_user.like?(@songwriting) %>
+                                     <a href="/like_cancel/<%= @songwriting.id %>">
+                                         <div class="musicButtonHeart"><span class="glyphicon glyphicon-heart heart-ch1"></span><span class="heart-ch2">&nbsp;<%= @songwriting.likes.size %></span></div></a>
+                                 <% else %>
+                                     <a href="/like/<%= @songwriting.id %>">
+                                         <div class="musicButtonHeart"><span class="glyphicon glyphicon-heart heart-ch1 dislike"></span><span class="heart-ch2">&nbsp;<%= @songwriting.likes.size %></span></div></a>
+                                 <% end %>
+                             
+                             
+                        
+                         <div class="musicButtonMyMuser">My뮤저</div>
+                     </div>
+                     
+                     <div class="musicContent">
+                         <p><%= @songwriting.content %></p>
+                     </div>
+                </div>
+            <% unless @songwriting.album_pic.nil? %>
+                <img class="coverImageBig" src="<%=@songwriting.album_pic%>" width="300" height="300">
+            <% else %>
+                <img class="coverImageBig" src="http://via.placeholder.com/300X300" width="300" height="300">
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 댓글, 가사 -->
+<div class="row">
+    <div class="music-comment">
+        <div class="panel panel-default comment-panel">
+          <div class="panel-body comment-body">
+            <h4>감상평을 남겨주세요 !</h4>
+          </div>
+            <!--댓글-->
+                        
+          <table class="table comment-table">
+              
+            <tr>
+                <th>
+
+                    <%= form_tag("/category/sw_comment_create/#{@songwriting.id}", method: "post") do %>
+                    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+                    <input type="hidden" name="user_name" value="<%= current_user.name %>">
+                    <input type="hidden" name="avatar" value="<%= current_user.avatar.thumb.url %>">
+                    <%= text_area_tag :content, nil, class: 'form-control comment-text', placeholder: "댓글을 달아주세요" %>
+                    <%= submit_tag "Comment", class: 'btn btn-default history-profile-edit btn-comment-submit'%>
+                    <% end %>
+
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <% @songwriting.sw_comments.order('created_at DESC').each do |c| %><br>
+                    <div class="media comment-list-media">
+                      <div class="media-left media-middle">
+                        <a href="#">
+                        <% unless c.avatar.nil? %>
+                            <div class="card-image"><img width="70" height="70" class="media-object img-circle" src="<%= c.avatar %>" alt="프로필사진"></div> 
+                        <% else %>
+                            <div><img src="http://via.placeholder.com/70x70" width="70" height="70" alt="프로필없음" class="img-circle"></div>
+                            
+                        <% end %> 
+                        </a> 
+                      </div>
+                      <div class="media-body comment-list">
+                        
+                        <span class="comment-writer"><%= c.user_name %></span>
+                        <span class="comment-day"><%= c.updated_at %></span>
+                        <div class="comment-wrap">
+                            <p class="comment-content">
+                                <%= c.content %>
+                            </p>
+                            <div class="comment-button">
+                            <% if current_user.id == c.user %>
+                                <a href="/category/sw_comment_destroy/<%= c.id %>">삭제</a>
+                            <% end %>
+
+                            <!--댓글-->
+                            
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                </td>
+            </tr>
+
+          </table>
+        </div>
+    </div>
+    
+    <div class="music-lyrics">
+        <div class="panel panel-default lyrics-panel">
+          <div class="panel-heading">가사</div>
+          <div class="panel-body lyrics-body">
+            <pre class="lyrics-content">
+<%= @songwriting.lyrics %>
+            </pre>
+          </div>
+        </div>
+    </div>
+</div>

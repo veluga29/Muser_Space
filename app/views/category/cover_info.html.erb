@@ -1,0 +1,106 @@
+<div class="row first_row">
+    <div class="player-container">
+        <div class="coverImageBackground" style="background-image: url('<%= @cover.cover_pic %>');"></div>
+        <div class="centeredPlayerWrapper">
+            <div class="musicBoxCentered">
+                <div class="musicInfo">
+            
+                    <div id="d1_trackNameLabel" class="musicTrackName"><%=@cover.title %></div>
+                    <div id="d1_artistLabel" class="musicTrackArtist"><%=@cover.user_name%></div>
+                     <div class="musicButtonField">
+                         <!--<div class="musicButtonAdd"><span class="glyphicon glyphicon-music"></span></div>-->
+                         <!--<div class="musicButtonAdd"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;리스트 추가...</div>-->
+                        <% if current_user.like2?(@cover) %>
+                                     <a href="/like2_cancel/<%= @cover.id %>">
+                                         <div class="musicButtonHeart"><span class="glyphicon glyphicon-heart heart-ch1"></span><span class="heart-ch2"><%= @cover.like2s.size %></span></div></a>
+                                 <% else %>
+                                     <a href="/like2/<%= @cover.id %>">
+                                         <div class="musicButtonHeart"><span class="glyphicon glyphicon-heart heart-ch1 dislike"></span><span class="heart-ch2"><%= @cover.like2s.size %></span></div></a>
+                                 <% end %>
+                         <div class="musicButtonMyMuser">My뮤저</div>
+                     </div>
+                     <div class="musicContent">
+                         <p><%= @cover.content %></p>
+                     </div>
+                </div>
+
+                <div class="show-video-wrap">
+                <% unless @cover.cover_pic.nil? %>
+                    <video id="MY_VIDEO_1" class="video-js vjs-default-skin cover-video" controls preload="auto" width="100%" height="100%" data-setup="{}" poster="<%= @cover.cover_pic %>">
+                <% else %>
+                    <video id="MY_VIDEO_1" class="video-js vjs-default-skin cover-video" controls preload="auto" width="100%" height="100%" data-setup="{}" poster="http://via.placeholder.com/280X160">
+                <% end %>
+                <% unless @cover.cover_mic.nil? %>
+                    <source src="<%=@cover.cover_mic%>" type='video/mp4'>
+                <% else %>
+                    <source src="" type='video/mp4'>
+                <% end %> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 댓글, 가사 -->
+<div class="row">
+    <div class="music-comment">
+        <div class="panel panel-default comment-panel">
+          <div class="panel-body comment-body">
+            <h4>감상평을 남겨주세요 !</h4>
+          </div>
+          
+          <table class="table comment-table">
+            <tr>
+                <th>
+                    <%= form_tag("/category/c_comment_create/#{@cover.id}", method: "post") do %>
+                    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+                    <input type="hidden" name="user_name" value="<%= current_user.name %>">
+                    <input type="hidden" name="avatar" value="<%= current_user.avatar.thumb.url %>">
+                    <%= text_area_tag :content, nil, class: 'form-control comment-text', placeholder: "댓글을 달아주세요" %>
+                    <%= submit_tag "Comment", class: 'btn btn-default history-profile-edit btn-comment-submit'%>
+                    <% end %>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <% @cover.c_comments.order('created_at DESC').each do |c| %>
+                    <div class="media comment-list-media">
+                      <div class="media-left media-middle">
+                        <a href="#">
+                        <% unless c.avatar.nil? %>
+                            <div class="card-image"><img width="70" height="70" class="media-object img-circle" src="<%= c.avatar %>" alt="프로필사진"></div> 
+                        <% else %>
+                            <div class="card-image"><img src="http://via.placeholder.com/70x70" width="70" height="70" alt="프로필없음" class="img-circle"></div>
+                        <% end %>
+                        </a>
+                      </div>
+                      <div class="media-body comment-list">
+                           
+                        <span class="comment-writer"><%= c.user_name %> 님의 댓글</span>
+                        <span class="comment-day"><%= c.updated_at %></span>
+                        <div class="comment-wrap">
+                            <p class="comment-content"><%= c.content%></p>
+                            <div class="comment-button">
+                                <a href="/category/c_comment_destroy/<%= c.id %>">삭제</a>
+                            
+                            </div>
+                        </div>
+                      </div>
+                    </div>  
+                    <% end %>
+                </td>
+            </tr>
+          </table>
+        </div>
+    </div>
+    <div class="music-lyrics">
+        <div class="panel panel-default lyrics-panel">
+          <div class="panel-heading">가사</div>
+          <div class="panel-body lyrics-body">
+            <pre class="lyrics-content">
+
+            </pre>
+        </div>
+</div>
+    </div>
+</div>
