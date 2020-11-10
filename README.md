@@ -3,6 +3,12 @@
 </br>
 <div><img src="https://user-images.githubusercontent.com/26553265/98662608-619c6d80-238b-11eb-9884-da8ea62f8d7f.png" width=500></div>
 
+### 사용한 기술 스택
+- HTML / CSS
+- Javascript
+- Ruby on Rails 
+- AWS S3, EC2
+
 ### 기능 구현
 - 회원정보 및 음원, 영상, 댓글 등의 게시글 올리기 기능을 CRUD를 기반으로 구현
 - AWS S3 Storage에 연결시켜 프로필 사진, 앨범 사진, 음원, 공연 영상들을 업로드할 수 있게 구현
