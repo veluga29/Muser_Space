@@ -1,5 +1,6 @@
-# "Muser Space" - 음악을 사랑하는 Muser들의 음악공간
-## * Muser: Music + User, 음악을 이용(Play or Listen)하는 모든 사람들
+# Project "Muser Space"
+## - 음악을 사랑하는 Muser들의 음악공간
+### * Muser: Music + User, 음악을 이용(Play or Listen)하는 모든 사람들
 </br>
 <div><img src="https://user-images.githubusercontent.com/26553265/98662608-619c6d80-238b-11eb-9884-da8ea62f8d7f.png" width=500></div></br>
 
