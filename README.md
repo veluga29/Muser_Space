@@ -1,7 +1,7 @@
 # "Muser Space" - 음악을 사랑하는 Muser들의 음악공간
 ## * Muser: Music + User, 음악을 이용(Play or Listen)하는 모든 사람들
 </br>
-<div><img src="https://user-images.githubusercontent.com/26553265/98662608-619c6d80-238b-11eb-9884-da8ea62f8d7f.png" width=500></div>
+<div><img src="https://user-images.githubusercontent.com/26553265/98662608-619c6d80-238b-11eb-9884-da8ea62f8d7f.png" width=500></div></br>
 
 ### 1. 사용한 기술 스택
 - HTML / CSS
@@ -27,7 +27,7 @@
 - My page에서 프로필(사진, 닉네임, 상세정보)등을 업로드 및 수정하고, 게시글을 올린 다른 유저의 프로필 페이지도 볼 수 있게 구현
 - 조회수, 좋아요 기반의 차트 페이지 구현
 - howler 플레이어를 통한 음원 스트리밍을 팝업으로 구현
-</br>
+</br></br>
 
 <div style="text-align : center;"><img src="https://user-images.githubusercontent.com/26553265/98434778-0d3c8800-2116-11eb-8f5e-b384d7ca830b.png" width=800 ></div></br></br>
 <div style="text-align : center;"><img src="https://user-images.githubusercontent.com/26553265/98434794-365d1880-2116-11eb-9fd0-549dca9dde96.png" width=800></div></br></br>
